@@ -26,7 +26,8 @@ cardsArray.forEach((img) => {
   card.classList.add('card');
 
   const image = document.createElement('img');
-  image.src = `images/${img}`;
+  image.src = img;
+
 
   card.appendChild(image);
   gameBoard.appendChild(card);
@@ -77,5 +78,6 @@ function unflipCards() {
 function resetBoard() {
   [firstCard, secondCard, lockBoard] = [null, null, false];
 }
+
 
 
