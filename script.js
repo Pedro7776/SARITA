@@ -6,14 +6,14 @@ const images = [
   'IMG_1959.JPG',
   'IMG_1960.JPG',
   'IMG_1961.JPG',
-  'IMG_1962.JPG',
+  'IMG_1962.JPG'
 ];
 
-const cardsArray = [...images, ...images]; // duplica
+// duplica para formar os pares
+const cardsArray = [...images, ...images];
 
-
-cardsArray.sort(() => 0.5 - Math.random()); // embaralha
-
+// embaralha
+cardsArray.sort(() => 0.5 - Math.random());
 
 const gameBoard = document.getElementById('gameBoard');
 
@@ -26,15 +26,14 @@ cardsArray.forEach((img) => {
   card.classList.add('card');
 
   const image = document.createElement('img');
-  image.src = img;
-
+  image.src = img; // 🔥 CORRETO: imagens estão na mesma pasta
+  image.alt = 'carta';
 
   card.appendChild(image);
   gameBoard.appendChild(card);
 
   card.addEventListener('click', () => flipCard(card));
 });
-
 
 function flipCard(card) {
   if (lockBoard) return;
@@ -52,17 +51,20 @@ function flipCard(card) {
 }
 
 function checkMatch() {
-  const isMatch =
-    firstCard.querySelector('img').src ===
-    secondCard.querySelector('img').src;
+  const img1 = firstCard.querySelector('img').src;
+  const img2 = secondCard.querySelector('img').src;
 
-  isMatch ? disableCards() : unflipCards();
+  if (img1 === img2) {
+    disableCards();
+  } else {
+    unflipCards();
+  }
 }
 
 function disableCards() {
-  firstCard.removeEventListener('click', flipCard);
-  secondCard.removeEventListener('click', flipCard);
-  resetBoard(); 
+  firstCard.style.pointerEvents = 'none';
+  secondCard.style.pointerEvents = 'none';
+  resetBoard();
 }
 
 function unflipCards() {
@@ -76,8 +78,7 @@ function unflipCards() {
 }
 
 function resetBoard() {
-  [firstCard, secondCard, lockBoard] = [null, null, false];
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
 }
-
-
-
